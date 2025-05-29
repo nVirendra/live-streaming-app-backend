@@ -8,7 +8,7 @@ require('dotenv').config();
 
 // Import configurations
 const connectDB = require('./config/database');
-const connectRedis = require('./config/redis');
+//const connectRedis = require('./config/redis');
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -46,7 +46,7 @@ app.use(morgan('combined'));
 
 // Database connections
 connectDB();
-connectRedis();
+//connectRedis();
 
 // API Routes
 app.use('/api/auth', authRoutes);
