@@ -138,20 +138,6 @@ router.post('/login', [
 // @route GET /api/auth/me
 // @desc Get current user
 // @access Private
-router.get('/me', auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select('-password');
-    res.json({
-      success: true,
-      user
-    });
-  } catch (error) {
-    console.error('Get user error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Server error'
-    });
-  }
-});
+
 
 module.exports = router;

@@ -14,8 +14,8 @@ const connectDB = require('./config/database');
 const authRoutes = require('./routes/auth');
 const streamRoutes = require('./routes/streams');
 const userRoutes = require('./routes/users');
-const rtmpRoutes = require('./routes/rtmp');
-const analyticsRoutes = require('./routes/analytics');
+// const rtmpRoutes = require('./routes/rtmp');
+// const analyticsRoutes = require('./routes/analytics');
 
 // Import services
 const StreamingService = require('./services/StreamingService');
@@ -52,8 +52,8 @@ connectDB();
 app.use('/api/auth', authRoutes);
 app.use('/api/streams', streamRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/rtmp', rtmpRoutes);
-app.use('/api/analytics', analyticsRoutes);
+// app.use('/api/rtmp', rtmpRoutes);
+// app.use('/api/analytics', analyticsRoutes);
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {
