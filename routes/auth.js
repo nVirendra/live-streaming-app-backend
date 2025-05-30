@@ -22,7 +22,7 @@ router.post('/register', [
       });
     }
 
-    const { username, email, password } = req.body;
+    const { username, email, password, rememberMe } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({
@@ -45,20 +45,34 @@ router.post('/register', [
 
     await user.save();
 
-    // Generate token
+    // Generate tokens
     const token = user.generateToken();
+    let refreshToken = null;
 
-    res.status(201).json({
+    // Generate refresh token if rememberMe is true or if you want to always include it
+    if (rememberMe || true) { // Set to true if you always want refresh tokens
+      refreshToken = user.generateRefreshToken(); // You'll need to implement this method
+    }
+
+    const responseData = {
       success: true,
-      token,
       user: {
         id: user._id,
         username: user.username,
         email: user.email,
         avatar: user.avatar,
         isStreamer: user.isStreamer
-      }
-    });
+      },
+      token,
+      message: 'Registration successful'
+    };
+
+    // Add refresh token to response if it exists
+    if (refreshToken) {
+      responseData.refreshToken = refreshToken;
+    }
+
+    res.status(201).json(responseData);
 
   } catch (error) {
     console.error('Registration error:', error);
